@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-11-09T12:12:25",
+  "n_reference": 23972,
+  "n_current": 1000,
+  "drift_simulated": false,
+  "score_psi": 0.0101,
+  "score_status": "stable",
+  "features": [
+    {
+      "feature": "LIMIT_BAL",
+      "psi": 0.0096,
+      "status": "stable"
+    },
+    {
+      "feature": "AGE",
+      "psi": 0.0059,
+      "status": "stable"
+    },
+    {
+      "feature": "PAY_0",
+      "psi": 0.0161,
+      "status": "stable"
+    },
+    {
+      "feature": "PAY_2",
+      "psi": 0.0113,
+      "status": "stable"
+    },
+    {
+      "feature": "BILL_AMT1",
+      "psi": 0.0178,
+      "status": "stable"
+    },
+    {
+      "feature": "PAY_AMT1",
+      "psi": 0.005,
+      "status": "stable"
+    }
+  ],
+  "overall_status": "stable",
+  "predicted_default_rate": {
+    "reference": 0.2588,
+    "current": 0.248
+  },
+  "actual_default_rate": {
+    "reference": 0.2213,
+    "current": 0.216
+  },
+  "current_roc_auc": 0.7537
+}
