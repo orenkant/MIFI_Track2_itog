@@ -37,7 +37,8 @@ MODELS_DIR = Path("models")
 REPORTS_DIR = Path("reports")
 FIGURES_DIR = REPORTS_DIR / "figures"
 
-# MLflow 3 сохраняет sklearn-модели через skops, свои и sklearn-типы указываю явно
+# MLflow 3 сохраняет модели через skops (безопаснее pickle), он требует явно
+# перечислить типы, которых нет в его стандартном списке
 SKOPS_TRUSTED_TYPES = [
     "numpy.dtype",
     "sklearn.tree._tree.Tree",
@@ -85,7 +86,7 @@ def plot_importance(pipeline, name, path, top=20):
         values = np.abs(clf.coef_[0])
     else:
         # у HistGradientBoosting нет встроенной важности признаков
-        return False
+        return
 
     names = pipeline.named_steps["preprocessor"].get_feature_names_out()
     imp = pd.Series(values, index=names).sort_values().tail(top)
@@ -95,7 +96,6 @@ def plot_importance(pipeline, name, path, top=20):
     fig.tight_layout()
     fig.savefig(path, dpi=100)
     plt.close(fig)
-    return True
 
 
 def build_search(cfg, cv, common):
@@ -154,9 +154,6 @@ def run_experiment(cfg, data, common, tmp_dir):
             k.replace("classifier__", ""): v for k, v in search.best_params_.items()
         }
 
-        mlflow.set_tags(
-            {"model_type": cfg["model"], "use_features": cfg["use_features"]}
-        )
         mlflow.log_params(
             {
                 "model_type": cfg["model"],

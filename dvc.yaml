@@ -14,6 +14,7 @@ stages:
 
   prepare:
     cmd: python -m src.data.make_dataset
+    # отчёт валидации в зависимостях, чтобы prepare шёл только после validate
     deps:
       - data/raw/UCI_Credit_Card.csv
       - reports/validation_report.json

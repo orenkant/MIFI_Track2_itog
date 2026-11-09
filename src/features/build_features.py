@@ -41,6 +41,7 @@ def add_features(df):
     total_bill = df[BILL_COLS].sum(axis=1)
     total_paid = df[PAY_AMT_COLS].sum(axis=1)
     ratio = total_paid / total_bill.where(total_bill > 0)
+    # сверху ограничил 5, при маленьком счёте отношение улетает в сотни
     df["PAY_RATIO"] = ratio.fillna(1.0).clip(upper=5.0)
 
     df["AGE_BIN"] = pd.cut(

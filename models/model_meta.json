@@ -1,6 +1,6 @@
 {
   "model_name": "hist_gradient_boosting",
-  "mlflow_run_id": "27360ab35d6f48c6b199fbec18854e03",
+  "mlflow_run_id": "cbb39fd855b34445ad7488e603def03f",
   "threshold": 0.2643791761775945,
   "best_params": {
     "min_samples_leaf": 100,

@@ -15,9 +15,8 @@ jobs:
         with:
           python-version: "3.14"
 
-      # версии берутся из requirements-dev.txt, чтобы не дублировать их здесь
       - name: Установка линтеров
-        run: pip install $(grep -E "^(flake8|black)==" requirements-dev.txt)
+        run: pip install flake8==7.5.0 black==26.10.1
 
       - name: flake8
         run: flake8 src tests

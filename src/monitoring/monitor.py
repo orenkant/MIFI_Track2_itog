@@ -16,7 +16,6 @@ from src.data.validation import validate_dataframe
 from src.monitoring.drift import psi, psi_report, psi_status
 
 KEY_FEATURES = ["LIMIT_BAL", "AGE", "PAY_0", "PAY_2", "BILL_AMT1", "PAY_AMT1"]
-STATUS_ORDER = ["stable", "moderate", "significant"]
 
 
 def simulate_drift(df, n, seed=42):
@@ -95,9 +94,14 @@ def main():
 
     features = psi_report(reference, current, KEY_FEATURES)
     score_psi = psi(ref_proba, cur_proba)
-    overall = max(
-        [psi_status(score_psi)] + features["status"].tolist(), key=STATUS_ORDER.index
-    )
+
+    statuses = features["status"].tolist() + [psi_status(score_psi)]
+    if "significant" in statuses:
+        overall = "significant"
+    elif "moderate" in statuses:
+        overall = "moderate"
+    else:
+        overall = "stable"
 
     report = {
         "timestamp": datetime.now().isoformat(timespec="seconds"),
