@@ -20,8 +20,8 @@ from src.data.columns import (
 
 SUITE_NAME = "credit_data_suite"
 
-INT_TYPES = ["int64", "int32", "Int64"]
-NUM_TYPES = INT_TYPES + ["float64", "float32", "Float64"]
+INT_TYPES = ["int64"]
+NUM_TYPES = ["int64", "float64"]
 
 
 def build_expectation_suite(with_target=True, with_id=True):
@@ -101,18 +101,11 @@ def build_expectation_suite(with_target=True, with_id=True):
 def validate_dataframe(df, with_target=True, with_id=True):
     """Возвращает (успех, список проваленных проверок)."""
     context = gx.get_context(mode="ephemeral")
+    # отключил прогресс-бары, чтобы не засоряли вывод в CI
     context.variables.progress_bars = ProgressBarsConfig(globally=False)
 
-    batch_def = (
-        context.data_sources.add_pandas("pandas")
-        .add_dataframe_asset("credit_data")
-        .add_batch_definition_whole_dataframe("batch")
-    )
-    suite = context.suites.add(build_expectation_suite(with_target, with_id))
-    validation = context.validation_definitions.add(
-        gx.ValidationDefinition(name="credit_validation", data=batch_def, suite=suite)
-    )
-    result = validation.run(batch_parameters={"dataframe": df})
+    batch = context.data_sources.pandas_default.read_dataframe(df)
+    result = batch.validate(build_expectation_suite(with_target, with_id))
 
     failed = []
     for r in result.results:

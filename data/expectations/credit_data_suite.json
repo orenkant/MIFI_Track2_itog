@@ -414,9 +414,7 @@
       "kwargs": {
         "column": "SEX",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -427,9 +425,7 @@
       "kwargs": {
         "column": "EDUCATION",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -440,9 +436,7 @@
       "kwargs": {
         "column": "MARRIAGE",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -453,9 +447,7 @@
       "kwargs": {
         "column": "AGE",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -466,9 +458,7 @@
       "kwargs": {
         "column": "PAY_0",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -479,9 +469,7 @@
       "kwargs": {
         "column": "PAY_2",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -492,9 +480,7 @@
       "kwargs": {
         "column": "PAY_3",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -505,9 +491,7 @@
       "kwargs": {
         "column": "PAY_4",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -518,9 +502,7 @@
       "kwargs": {
         "column": "PAY_5",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -531,9 +513,7 @@
       "kwargs": {
         "column": "PAY_6",
         "type_list": [
-          "int64",
-          "int32",
-          "Int64"
+          "int64"
         ]
       },
       "meta": {},
@@ -545,11 +525,7 @@
         "column": "LIMIT_BAL",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -561,11 +537,7 @@
         "column": "BILL_AMT1",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -577,11 +549,7 @@
         "column": "BILL_AMT2",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -593,11 +561,7 @@
         "column": "BILL_AMT3",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -609,11 +573,7 @@
         "column": "BILL_AMT4",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -625,11 +585,7 @@
         "column": "BILL_AMT5",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -641,11 +597,7 @@
         "column": "BILL_AMT6",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -657,11 +609,7 @@
         "column": "PAY_AMT1",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -673,11 +621,7 @@
         "column": "PAY_AMT2",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -689,11 +633,7 @@
         "column": "PAY_AMT3",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -705,11 +645,7 @@
         "column": "PAY_AMT4",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -721,11 +657,7 @@
         "column": "PAY_AMT5",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
@@ -737,11 +669,7 @@
         "column": "PAY_AMT6",
         "type_list": [
           "int64",
-          "int32",
-          "Int64",
-          "float64",
-          "float32",
-          "Float64"
+          "float64"
         ]
       },
       "meta": {},
