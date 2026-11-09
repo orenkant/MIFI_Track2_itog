@@ -8,10 +8,14 @@ stages:
       hash: md5
       md5: 940b416bb13a9b24bb5c9e1589284005
       size: 2862995
+    - path: src/data/columns.py
+      hash: md5
+      md5: 3529a4c2fa747a85550c43960cb15b1c
+      size: 510
     - path: src/data/validation.py
       hash: md5
-      md5: b9165f6df6c89d866ba0cf4a638235ce
-      size: 6483
+      md5: c3b85b595741cbcc4dabe61934e2928a
+      size: 6478
     outs:
     - path: data/expectations/credit_data_suite.json
       hash: md5
@@ -32,10 +36,14 @@ stages:
       hash: md5
       md5: 76feb08ec7b079412ac7a4c7821195b0
       size: 96
+    - path: src/data/columns.py
+      hash: md5
+      md5: 3529a4c2fa747a85550c43960cb15b1c
+      size: 510
     - path: src/data/make_dataset.py
       hash: md5
-      md5: eb26ad14fa977285768a617b4f1f8b43
-      size: 2257
+      md5: 489ad92bd151ff6632cb604d82722b3f
+      size: 1935
     params:
       params.yaml:
         data:
@@ -63,14 +71,14 @@ stages:
       hash: md5
       md5: 0dd43abe7532e7357025fa4f877f6626
       size: 2779860
-    - path: src/data/make_dataset.py
+    - path: src/data/columns.py
       hash: md5
-      md5: eb26ad14fa977285768a617b4f1f8b43
-      size: 2257
+      md5: 3529a4c2fa747a85550c43960cb15b1c
+      size: 510
     - path: src/features/build_features.py
       hash: md5
-      md5: 0e65d8e20370b7666d1565bba48fea6d
-      size: 1607
+      md5: aab50a09137e33e54f377b1701154a7f
+      size: 1602
     - path: src/models/metrics.py
       hash: md5
       md5: 0567d638e65063dc1dbe2cf8d800b4ad
@@ -81,8 +89,8 @@ stages:
       size: 2338
     - path: src/models/train.py
       hash: md5
-      md5: 9061496c650087a1289fb3647ed83896
-      size: 11223
+      md5: 2fdcae88d235f9a6707413524fdfdadf
+      size: 11218
     params:
       params.yaml:
         train:
@@ -209,7 +217,7 @@ stages:
       size: 522978
     - path: models/model_meta.json
       hash: md5
-      md5: a54a205a5dd1b7731911349cc55ea004
+      md5: ffe508f520032c48ccd0770a90fc58b7
       size: 658
     - path: reports/experiments.csv
       hash: md5

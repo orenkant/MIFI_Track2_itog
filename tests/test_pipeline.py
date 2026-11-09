@@ -1,6 +1,7 @@
 import pytest
 
-from src.data.make_dataset import FEATURE_COLS, TARGET, clean_data
+from src.data.columns import FEATURE_COLS, TARGET
+from src.data.make_dataset import clean_data
 from src.models.pipeline import create_classifier, create_pipeline
 
 

@@ -1,6 +1,7 @@
 import pandas as pd
 
-from src.data.make_dataset import RAW_TARGET, TARGET, clean_data, split_data
+from src.data.columns import RAW_TARGET, TARGET
+from src.data.make_dataset import clean_data, split_data
 
 
 def test_clean_data_renames_target_and_drops_id(raw_sample):

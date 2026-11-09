@@ -4,6 +4,7 @@ stages:
     cmd: python -m src.data.validation data/raw/UCI_Credit_Card.csv --report reports/validation_report.json
     deps:
       - data/raw/UCI_Credit_Card.csv
+      - src/data/columns.py
       - src/data/validation.py
     outs:
       - reports/validation_report.json:
@@ -16,6 +17,7 @@ stages:
     deps:
       - data/raw/UCI_Credit_Card.csv
       - reports/validation_report.json
+      - src/data/columns.py
       - src/data/make_dataset.py
     params:
       - data
@@ -28,7 +30,7 @@ stages:
     deps:
       - data/processed/train.csv
       - data/processed/test.csv
-      - src/data/make_dataset.py
+      - src/data/columns.py
       - src/features/build_features.py
       - src/models/pipeline.py
       - src/models/metrics.py

@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from src.data.make_dataset import RAW_TARGET
+from src.data.columns import RAW_TARGET
 from src.data.validation import validate_dataframe
 
 

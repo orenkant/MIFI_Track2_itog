@@ -26,7 +26,7 @@ from sklearn.model_selection import (
     cross_val_predict,
 )
 
-from src.data.make_dataset import FEATURE_COLS, TARGET
+from src.data.columns import FEATURE_COLS, TARGET
 from src.models.metrics import compute_metrics, find_best_threshold
 from src.models.pipeline import create_classifier, create_pipeline
 

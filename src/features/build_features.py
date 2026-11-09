@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 
-from src.data.make_dataset import BILL_COLS, PAY_AMT_COLS, PAY_STATUS_COLS
+from src.data.columns import BILL_COLS, PAY_AMT_COLS, PAY_STATUS_COLS
 
 AGE_BINS = [0, 25, 35, 45, 55, 65, np.inf]
 AGE_LABELS = ["<25", "25-34", "35-44", "45-54", "55-64", "65+"]

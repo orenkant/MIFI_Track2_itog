@@ -10,7 +10,7 @@ import great_expectations.expectations as gxe
 import pandas as pd
 from great_expectations.data_context.types.base import ProgressBarsConfig
 
-from src.data.make_dataset import (
+from src.data.columns import (
     BILL_COLS,
     FEATURE_COLS,
     PAY_AMT_COLS,
