@@ -1,0 +1,12 @@
+{
+  "model_name": "hist_gradient_boosting",
+  "cv_roc_auc": 0.788,
+  "threshold": 0.2644,
+  "test_roc_auc": 0.7774,
+  "test_gini": 0.5549,
+  "test_pr_auc": 0.557,
+  "test_precision": 0.503,
+  "test_recall": 0.5754,
+  "test_f1": 0.5368,
+  "test_accuracy": 0.7802
+}
