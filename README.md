@@ -4,7 +4,8 @@
 
 Задача: по данным клиента кредитной карты предсказать вероятность дефолта в следующем месяце.
 Данные: [Default of Credit Card Clients](https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients)
-(UCI), 30 000 клиентов из Тайваня, 23 признака, дефолтов около 22%.
+(UCI, в проекте используется CSV-версия с Kaggle), 30 000 клиентов из Тайваня, 23 признака,
+дефолтов около 22%.
 
 В проекте собран весь путь модели: проверка и подготовка данных, обучение с подбором гиперпараметров,
 логирование экспериментов в MLflow, DVC-пайплайн, тесты и CI в GitHub Actions, REST API в Docker
@@ -74,14 +75,43 @@
 Нужны Python 3.14 и Docker.
 
 ```bash
+git clone https://github.com/orenkant/MIFI_Track2_itog.git
+cd MIFI_Track2_itog
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
-
-dvc pull      # скачать данные и модель из хранилища DVC
-# или пересобрать всё с нуля:
-dvc repro     # validate -> prepare -> train, около 3.5 минут
 ```
+
+### Данные
+
+Датасет и модель версионируются через DVC и в git не лежат. Хранилище DVC у меня локальное,
+поэтому после клонирования с GitHub `dvc pull` не сработает, датасет нужно скачать вручную:
+
+1. Скачать `UCI_Credit_Card.csv` с Kaggle:
+   [Default of Credit Card Clients Dataset](https://www.kaggle.com/datasets/uciml/default-of-credit-card-clients-dataset)
+   (кнопка Download, в архиве один файл) или через Kaggle CLI:
+
+   ```bash
+   kaggle datasets download -d uciml/default-of-credit-card-clients-dataset -p data/raw --unzip
+   ```
+
+2. Положить файл в `data/raw/UCI_Credit_Card.csv`.
+3. По желанию сверить хеш с `data/raw/UCI_Credit_Card.csv.dvc`:
+
+   ```bash
+   md5sum data/raw/UCI_Credit_Card.csv   # 940b416bb13a9b24bb5c9e1589284005
+   ```
+
+4. Собрать пайплайн, подготовленные данные и модель появятся заново:
+
+   ```bash
+   dvc repro     # validate -> prepare -> train, около 3.5 минут
+   ```
+
+Если хеш не совпал (например, другие переводы строк), `dvc repro` всё равно отработает:
+DVC увидит, что данные изменились, а стадия `validate` проверит, что с ними всё в порядке.
+
+При доступе к хранилищу DVC вместо шагов 1–4 достаточно `dvc pull`.
 
 ## Данные и валидация
 
@@ -159,8 +189,9 @@ dvc params diff     # что поменялось в params.yaml
 dvc push / dvc pull
 ```
 
-Хранилище DVC – локальная папка `../dvc-storage` рядом с проектом. Для учебного проекта этого
-достаточно, в реальной работе здесь был бы S3 или Google Drive.
+Хранилище DVC – локальная папка рядом с проектом. Для учебного проекта этого достаточно,
+в команде здесь был бы общий remote (S3, Google Drive), а пока данные берутся с Kaggle,
+см. [Данные](#данные).
 
 ## Тесты и CI
 
