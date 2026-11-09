@@ -1,0 +1,19 @@
+# окружение
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# эксперименты MLflow храним локально
+mlruns/
+mlflow.db
+
+# данные и отчёты (позже уйдут под DVC)
+/data/raw/UCI_Credit_Card.csv
+/data/processed/
+/reports/validation_report.json
+
+# IDE
+.vscode/
+.idea/
