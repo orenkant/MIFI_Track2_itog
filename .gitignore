@@ -13,6 +13,8 @@ mlflow.db
 /data/raw/UCI_Credit_Card.csv
 /data/processed/
 /reports/validation_report.json
+/models/model.pkl
+/models/model_meta.json
 
 # IDE
 .vscode/
