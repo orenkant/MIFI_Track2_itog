@@ -217,7 +217,7 @@ stages:
       size: 522978
     - path: models/model_meta.json
       hash: md5
-      md5: 89b5aa2aeeeffe60dbcf6e365238f4fd
+      md5: 55802b40636ed27e96576e3c0f073a0c
       size: 658
     - path: reports/experiments.csv
       hash: md5
