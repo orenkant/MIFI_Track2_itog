@@ -1,0 +1,229 @@
+schema: '2.0'
+stages:
+  validate:
+    cmd: python -m src.data.validation data/raw/UCI_Credit_Card.csv --report 
+      reports/validation_report.json
+    deps:
+    - path: data/raw/UCI_Credit_Card.csv
+      hash: md5
+      md5: 940b416bb13a9b24bb5c9e1589284005
+      size: 2862995
+    - path: src/data/validation.py
+      hash: md5
+      md5: b9165f6df6c89d866ba0cf4a638235ce
+      size: 6483
+    outs:
+    - path: data/expectations/credit_data_suite.json
+      hash: md5
+      md5: 506d47ce81bcc18096ec15eca1681ca8
+      size: 21997
+    - path: reports/validation_report.json
+      hash: md5
+      md5: 76feb08ec7b079412ac7a4c7821195b0
+      size: 96
+  prepare:
+    cmd: python -m src.data.make_dataset
+    deps:
+    - path: data/raw/UCI_Credit_Card.csv
+      hash: md5
+      md5: 940b416bb13a9b24bb5c9e1589284005
+      size: 2862995
+    - path: reports/validation_report.json
+      hash: md5
+      md5: 76feb08ec7b079412ac7a4c7821195b0
+      size: 96
+    - path: src/data/make_dataset.py
+      hash: md5
+      md5: eb26ad14fa977285768a617b4f1f8b43
+      size: 2257
+    params:
+      params.yaml:
+        data:
+          raw_path: data/raw/UCI_Credit_Card.csv
+          processed_dir: data/processed
+          test_size: 0.2
+          random_state: 42
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 49bee40c4455a16fbfbab13a4a439586
+      size: 695523
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 0dd43abe7532e7357025fa4f877f6626
+      size: 2779860
+  train:
+    cmd: python -m src.models.train
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 49bee40c4455a16fbfbab13a4a439586
+      size: 695523
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 0dd43abe7532e7357025fa4f877f6626
+      size: 2779860
+    - path: src/data/make_dataset.py
+      hash: md5
+      md5: eb26ad14fa977285768a617b4f1f8b43
+      size: 2257
+    - path: src/features/build_features.py
+      hash: md5
+      md5: 0e65d8e20370b7666d1565bba48fea6d
+      size: 1607
+    - path: src/models/metrics.py
+      hash: md5
+      md5: 0567d638e65063dc1dbe2cf8d800b4ad
+      size: 1272
+    - path: src/models/pipeline.py
+      hash: md5
+      md5: d8a22d1aef02b51ca4507c2480fb9a74
+      size: 2338
+    - path: src/models/train.py
+      hash: md5
+      md5: 9061496c650087a1289fb3647ed83896
+      size: 11223
+    params:
+      params.yaml:
+        train:
+          cv_folds: 5
+          random_state: 42
+          n_jobs: -1
+          mlflow:
+            tracking_uri: sqlite:///mlflow.db
+            experiment_name: credit_default_pd
+            registered_model_name: CreditDefaultModel
+          experiments:
+          - name: logreg_baseline
+            model: logreg
+            use_features: false
+            search: grid
+            params:
+              solver: liblinear
+            param_grid:
+              C:
+              - 0.01
+              - 0.1
+              - 1.0
+              l1_ratio:
+              - 0
+              - 1
+              class_weight:
+              - 
+              - balanced
+          - name: logreg_fe
+            model: logreg
+            use_features: true
+            search: grid
+            params:
+              solver: liblinear
+            param_grid:
+              C:
+              - 0.01
+              - 0.1
+              - 1.0
+              l1_ratio:
+              - 0
+              - 1
+              class_weight:
+              - 
+              - balanced
+          - name: random_forest
+            model: random_forest
+            use_features: true
+            search: random
+            n_iter: 8
+            params:
+              n_jobs: 1
+            param_grid:
+              n_estimators:
+              - 200
+              - 400
+              max_depth:
+              - 6
+              - 8
+              - 10
+              - 12
+              min_samples_leaf:
+              - 5
+              - 10
+              - 20
+              max_features:
+              - sqrt
+              - 0.3
+              class_weight:
+              - 
+              - balanced_subsample
+          - name: gradient_boosting
+            model: gradient_boosting
+            use_features: true
+            search: random
+            n_iter: 6
+            params: {}
+            param_grid:
+              n_estimators:
+              - 100
+              - 200
+              learning_rate:
+              - 0.05
+              - 0.1
+              max_depth:
+              - 2
+              - 3
+              - 4
+              subsample:
+              - 0.8
+              - 1.0
+          - name: hist_gradient_boosting
+            model: hist_gradient_boosting
+            use_features: true
+            search: random
+            n_iter: 15
+            params: {}
+            param_grid:
+              learning_rate:
+              - 0.03
+              - 0.05
+              - 0.1
+              max_iter:
+              - 200
+              - 400
+              max_leaf_nodes:
+              - 15
+              - 31
+              min_samples_leaf:
+              - 20
+              - 50
+              - 100
+              l2_regularization:
+              - 0.0
+              - 1.0
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 13e1aa29a8fde5f95b7eb19b6039adbc
+      size: 263
+    - path: models/model.pkl
+      hash: md5
+      md5: c01d0ba8463f44d5abb123ac384b6161
+      size: 522978
+    - path: models/model_meta.json
+      hash: md5
+      md5: a54a205a5dd1b7731911349cc55ea004
+      size: 658
+    - path: reports/experiments.csv
+      hash: md5
+      md5: cdf7456dd78ac994b216cc284c7d5037
+      size: 556
+    - path: reports/figures/confusion_matrix.png
+      hash: md5
+      md5: 9b8ce8c53759ca7b0e63d1ff8d10534d
+      size: 13489
+    - path: reports/figures/roc_curve.png
+      hash: md5
+      md5: 313289c03449899524208d4cc998e30c
+      size: 41777
+    - path: reports/figures/roc_curves_all.png
+      hash: md5
+      md5: a685788f3e8d7c615147e86720d41592
+      size: 72184

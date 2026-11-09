@@ -1,0 +1,6 @@
+{
+  "file": "data/raw/UCI_Credit_Card.csv",
+  "rows": 30000,
+  "success": true,
+  "failed": []
+}

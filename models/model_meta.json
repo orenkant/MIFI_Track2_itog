@@ -1,0 +1,37 @@
+{
+  "model_name": "hist_gradient_boosting",
+  "mlflow_run_id": "f61f9c7656fa46219cecf722548f8cf8",
+  "threshold": 0.2643791761775945,
+  "best_params": {
+    "min_samples_leaf": 100,
+    "max_leaf_nodes": 31,
+    "max_iter": 400,
+    "learning_rate": 0.03,
+    "l2_regularization": 1.0
+  },
+  "features": [
+    "LIMIT_BAL",
+    "SEX",
+    "EDUCATION",
+    "MARRIAGE",
+    "AGE",
+    "PAY_0",
+    "PAY_2",
+    "PAY_3",
+    "PAY_4",
+    "PAY_5",
+    "PAY_6",
+    "BILL_AMT1",
+    "BILL_AMT2",
+    "BILL_AMT3",
+    "BILL_AMT4",
+    "BILL_AMT5",
+    "BILL_AMT6",
+    "PAY_AMT1",
+    "PAY_AMT2",
+    "PAY_AMT3",
+    "PAY_AMT4",
+    "PAY_AMT5",
+    "PAY_AMT6"
+  ]
+}
