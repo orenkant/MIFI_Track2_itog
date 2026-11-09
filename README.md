@@ -11,6 +11,8 @@
 логирование экспериментов в MLflow, DVC-пайплайн, тесты и CI в GitHub Actions, REST API в Docker
 и мониторинг дрифта.
 
+Демонстрация работы всех частей со скриншотами и комментариями: [docs/demo.pdf](docs/demo.pdf).
+
 ## Результаты
 
 Проведено пять экспериментов, лучшая модель выбиралась по ROC-AUC на кросс-валидации (5 фолдов),
@@ -43,6 +45,7 @@
 │   ├── raw/                      # исходный датасет (под DVC)
 │   ├── processed/                # train.csv, test.csv (выход стадии prepare)
 │   └── expectations/             # набор правил Great Expectations в json
+├── docs/demo.pdf                 # демонстрация работы со скриншотами
 ├── models/                       # model.pkl (под DVC) и model_meta.json с порогом
 ├── notebooks/01_eda.ipynb        # разведочный анализ
 ├── reports/                      # таблица экспериментов, графики, отчёты валидации и дрифта
