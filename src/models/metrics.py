@@ -13,15 +13,9 @@ from sklearn.metrics import (
 def find_best_threshold(y_true, y_proba):
     """Порог, при котором F1 максимален."""
     precision, recall, thresholds = precision_recall_curve(y_true, y_proba)
-    # последняя точка кривой не имеет порога
-    precision, recall = precision[:-1], recall[:-1]
-    f1 = np.divide(
-        2 * precision * recall,
-        precision + recall,
-        out=np.zeros_like(precision),
-        where=(precision + recall) > 0,
-    )
-    return float(thresholds[np.argmax(f1)])
+    # 1e-9 защищает от деления на ноль, последняя точка кривой без порога
+    f1 = 2 * precision * recall / (precision + recall + 1e-9)
+    return float(thresholds[np.argmax(f1[:-1])])
 
 
 def compute_metrics(y_true, y_proba, threshold=0.5):

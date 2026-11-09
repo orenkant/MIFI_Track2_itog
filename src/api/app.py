@@ -2,10 +2,9 @@
 
 import os
 from contextlib import asynccontextmanager
-from typing import Annotated
 
 import pandas as pd
-from fastapi import Body, FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
 from src.models.predict import load_model, predict
@@ -15,6 +14,7 @@ state = {}
 
 @asynccontextmanager
 async def lifespan(app):
+    # модель загружается один раз при старте, пути можно переопределить (для тестов)
     model, meta = load_model(
         os.getenv("MODEL_PATH", "models/model.pkl"),
         os.getenv("META_PATH", "models/model_meta.json"),
@@ -26,10 +26,6 @@ async def lifespan(app):
 
 app = FastAPI(title="Credit Default Prediction API", version="1.0.0", lifespan=lifespan)
 
-PayStatus = Annotated[int, Field(ge=-2, le=9)]
-Bill = Annotated[float, Field(ge=-1_000_000, le=3_000_000)]
-Payment = Annotated[float, Field(ge=0, le=3_000_000)]
-
 
 class ClientData(BaseModel):
     """Данные клиента, ограничения те же, что в правилах Great Expectations."""
@@ -39,24 +35,24 @@ class ClientData(BaseModel):
     EDUCATION: int = Field(ge=0, le=6)
     MARRIAGE: int = Field(ge=0, le=3)
     AGE: int = Field(ge=18, le=100)
-    PAY_0: PayStatus
-    PAY_2: PayStatus
-    PAY_3: PayStatus
-    PAY_4: PayStatus
-    PAY_5: PayStatus
-    PAY_6: PayStatus
-    BILL_AMT1: Bill
-    BILL_AMT2: Bill
-    BILL_AMT3: Bill
-    BILL_AMT4: Bill
-    BILL_AMT5: Bill
-    BILL_AMT6: Bill
-    PAY_AMT1: Payment
-    PAY_AMT2: Payment
-    PAY_AMT3: Payment
-    PAY_AMT4: Payment
-    PAY_AMT5: Payment
-    PAY_AMT6: Payment
+    PAY_0: int = Field(ge=-2, le=9)
+    PAY_2: int = Field(ge=-2, le=9)
+    PAY_3: int = Field(ge=-2, le=9)
+    PAY_4: int = Field(ge=-2, le=9)
+    PAY_5: int = Field(ge=-2, le=9)
+    PAY_6: int = Field(ge=-2, le=9)
+    BILL_AMT1: float = Field(ge=-1_000_000, le=3_000_000)
+    BILL_AMT2: float = Field(ge=-1_000_000, le=3_000_000)
+    BILL_AMT3: float = Field(ge=-1_000_000, le=3_000_000)
+    BILL_AMT4: float = Field(ge=-1_000_000, le=3_000_000)
+    BILL_AMT5: float = Field(ge=-1_000_000, le=3_000_000)
+    BILL_AMT6: float = Field(ge=-1_000_000, le=3_000_000)
+    PAY_AMT1: float = Field(ge=0, le=3_000_000)
+    PAY_AMT2: float = Field(ge=0, le=3_000_000)
+    PAY_AMT3: float = Field(ge=0, le=3_000_000)
+    PAY_AMT4: float = Field(ge=0, le=3_000_000)
+    PAY_AMT5: float = Field(ge=0, le=3_000_000)
+    PAY_AMT6: float = Field(ge=0, le=3_000_000)
 
     model_config = ConfigDict(
         extra="forbid",
@@ -125,7 +121,7 @@ def predict_one(client: ClientData):
 
 
 @app.post("/predict_batch", response_model=list[Prediction])
-def predict_batch(
-    clients: Annotated[list[ClientData], Body(min_length=1, max_length=10_000)],
-):
+def predict_batch(clients: list[ClientData]):
+    if not clients:
+        raise HTTPException(status_code=422, detail="Пустой список клиентов")
     return run_model(clients)
